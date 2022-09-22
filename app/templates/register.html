@@ -3,32 +3,63 @@
 {% block content %}
 <h1>Register</h1>
 <form action="{{ url_for('auth.register') }}" method="POST">
+    {{ form.hidden_tag() }}
     <div class="form-group">
-        <label for="inputEmail">Email address</label>
-        <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp">
+        <fieldset id="email-field">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", placeholder = "Enter your Email here") }}
+        </fieldset>
+
+        <!-- <label for="inputEmail">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp"> -->
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
-        <label for="inputUsername">Username</label>
-        <input type="text" class="form-control" id="inputUsername" name="inputUsername">
+        <fieldset id="username-field">
+            {{ form.username.label }}
+            {{ form.username(class="form-control", placeholder = "Enter your username here") }}
+        </fieldset>
+
+        <!-- <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" name="inputUsername"> -->
     </div>
     <div class="form-group">
-        <label for="inputFirstName">First Name</label>
-        <input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
+        <fieldset id="first_name-field">
+            {{ form.first_name.label }}
+            {{ form.first_name(class="form-control", placeholder = "Enter your First Name here") }}
+        </fieldset>
+        <!-- <label for="inputFirstName">First Name</label>
+        <input type="text" class="form-control" id="inputFirstName" name="inputFirstName"> -->
     </div>
     <div class="form-group">
-        <label for="inputLastName">Last Name</label>
-        <input type="text" class="form-control" id="inputLastName" name="inputLastName">
+        <fieldset id="last_name-field">
+            {{ form.last_name.label }}
+            {{ form.last_name(class="form-control", placeholder = "Enter your Last Name here") }}
+        </fieldset>
+        <!-- <label for="inputLastName">Last Name</label>
+        <input type="text" class="form-control" id="inputLastName" name="inputLastName"> -->
     </div>
     <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+        <fieldset id="password-field">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder = "Enter your password here") }}
+        </fieldset>
+
+        <!-- <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" name="inputPassword"> -->
     </div>
     <div class="form-group">
-        <label for="inputPasswordConfirm">Confirm Password</label>
-        <input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm">
+
+        <fieldset id="confirm_password-field">
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(class="form-control", placeholder = "Confirm your password here") }}
+        </fieldset>
+
+        <!-- <label for="inputPasswordConfirm">Confirm Password</label>
+        <input type="password" class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm"> -->
     </div>
     <p><small>Already have an account? <a href="{{ url_for('auth.login') }}">Login here.</a></small></p>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form.submit_button(class = "btn btn-primary btn-block") }}
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 </form>
 {% endblock content %}
