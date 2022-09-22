@@ -1,0 +1,30 @@
+{% extends './partials/layout.html' %}
+
+{% block content %}
+<h1>Home</h1>
+<p>Welcome {{ user['first_name'] }} {{ user['last_name'] }}.</p>
+
+<h2>Create Post</h2>
+<form action="{{ url_for('main.create_post') }}" method="POST" class="my-2">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title">
+  </div>
+  <div class="form-group">
+    <label for="body">Body</label>
+    <input type="text" class="form-control" id="body" name="body">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% for post in posts %}
+<div class="card">
+  <div class="card-header">
+    {{ post['title'] }}
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ post['body'] }}</p>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
