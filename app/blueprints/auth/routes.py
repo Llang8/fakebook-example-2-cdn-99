@@ -1,6 +1,6 @@
 from . import bp as app
 from app.blueprints.main.models import User
-from app import db
+from app import db, login_manager
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user
 
@@ -21,7 +21,7 @@ def login():
 
     if user is None:
         flash('There was not a user with that email.', 'danger')
-    elif user.password != password:
+    elif not user.check_my_password(password):
         flash('The password was incorrect.', 'danger')
     else:
         flash('Logged in successfully', 'success')
@@ -55,7 +55,8 @@ def register():
 
     else:
         # REGISTER USER
-        new_user = User(email=email, username=username, first_name=first_name, last_name=last_name, password=password)
+        new_user = User(email=email, username=username, first_name=first_name, last_name=last_name, password='')
+        new_user.hash_my_password(password)
         db.session.add(new_user)
         db.session.commit()
         flash('User registered successfully', 'success')
@@ -67,4 +68,9 @@ def register():
 def logout():
     logout_user()
     flash('User logged out', 'success')
+    return redirect(url_for('auth.login'))
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    flash("You can't access this page without logging in.", 'danger')
     return redirect(url_for('auth.login'))
